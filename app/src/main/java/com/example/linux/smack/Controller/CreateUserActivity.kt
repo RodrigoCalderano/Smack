@@ -1,9 +1,10 @@
-package com.example.linux.smack
+package com.example.linux.smack.Controller
 
 import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.example.linux.smack.R
 import kotlinx.android.synthetic.main.activity_create_user.*
 import java.util.*
 
@@ -38,7 +39,6 @@ class CreateUserActivity : AppCompatActivity() {
         val b = random.nextInt(255)
 
         createAvatarImageView.setBackgroundColor(Color.rgb(r,g,b))
-
         val savedR = r.toDouble()
         val savedG = g.toDouble()
         val savedB = b.toDouble()
