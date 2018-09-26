@@ -9,8 +9,11 @@ import android.os.Bundle
 import android.support.v4.content.LocalBroadcastManager
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import com.example.linux.smack.Controller.LoginActivity
 import com.example.linux.smack.Sevices.AuthService
 import com.example.linux.smack.Sevices.UserDataService
@@ -25,7 +28,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-
 
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
@@ -66,7 +68,6 @@ class MainActivity : AppCompatActivity() {
             userImageNavHeader.setImageResource(R.drawable.profiledefault)
             userImageNavHeader.setBackgroundColor(Color.TRANSPARENT)
             loginBtnNavHeader.text = "Login"
-
         } else{
             val loginIntent = Intent(this, LoginActivity::class.java)
             startActivity(loginIntent)
@@ -74,11 +75,30 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun addChannelClicked(view: View){
+        if (AuthService.isLoggedIn){
+            val builder = AlertDialog.Builder(this)
+            val dialogView = layoutInflater.inflate(R.layout.add_channel_dialog, null)
 
+            builder.setView(dialogView).setPositiveButton("Add"){ dialogInterface, i ->  
+                val channelName = dialogView.findViewById<EditText>(R.id.addChannelNameTxt)
+                        .text.toString()
+                val descTextField = dialogView.findViewById<EditText>(R.id.addChannelDescTxt)
+                        .text.toString()
+            }.setNegativeButton("Cancel"){dialogInterface, i ->
+                //cancel and close dialog
+            }.show()
+        }
     }
 
     fun sendMessageBtnClicked(view: View){
+        hideKeyBoard()
+    }
 
+    fun hideKeyBoard() {
+        val inputManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        if(inputManager.isAcceptingText) {
+            inputManager.hideSoftInputFromWindow(currentFocus.windowToken, 0)
+        }
     }
 
 }
