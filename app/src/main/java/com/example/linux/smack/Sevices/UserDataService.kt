@@ -21,6 +21,7 @@ object UserDataService {
         App.prefs.authToken = ""
         App.prefs.userEmail = ""
         App.prefs.isLoggedIn = false
+        MessageService.channels.clear()
     }
 
     fun returnAvatarColor(components : String) : Int {
