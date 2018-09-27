@@ -44,7 +44,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }else{
             errorToast("Aparentemente algo em branco")
-            enableSpinner(true)
+            enableSpinner(false)
         }
     }
 
