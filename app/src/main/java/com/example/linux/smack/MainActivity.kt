@@ -56,6 +56,10 @@ class MainActivity : AppCompatActivity() {
 
         toggle.syncState()
         setupAdapter()
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(userDataChangeReceiver,
+                IntentFilter(BROADCAST_USER_DATA_CHANGE))
+
         channel_list.setOnItemClickListener { adapterView, view, i, l ->
             selectedChannel = MessageService.channels[i]
             drawer_layout.closeDrawer(GravityCompat.START)
@@ -73,12 +77,6 @@ class MainActivity : AppCompatActivity() {
         messageListView.adapter = messageAdapter
         val layoutManager = LinearLayoutManager(this)
         messageListView.layoutManager = layoutManager
-    }
-
-    override fun onResume() {
-        LocalBroadcastManager.getInstance(this).registerReceiver(userDataChangeReceiver,
-                IntentFilter(BROADCAST_USER_DATA_CHANGE))
-        super.onResume()
     }
 
     override fun onDestroy() {
@@ -146,6 +144,7 @@ class MainActivity : AppCompatActivity() {
             userImageNavHeader.setImageResource(R.drawable.profiledefault)
             userImageNavHeader.setBackgroundColor(Color.TRANSPARENT)
             loginBtnNavHeader.text = "Login"
+            mainChannelName.text = "Please log in"
         } else{
             val loginIntent = Intent(this, LoginActivity::class.java)
             startActivity(loginIntent)
