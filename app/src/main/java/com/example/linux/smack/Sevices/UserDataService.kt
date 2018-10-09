@@ -34,11 +34,11 @@ object UserDataService {
         var b = 0
         val scanner = Scanner(strippedColor)
         if (scanner.hasNext()){
-            r = (scanner.nextDouble()).toInt()
-            g = (scanner.nextDouble()).toInt()
-            b = (scanner.nextDouble()).toInt()
+            //r = (scanner.nextDouble()).toInt()
+            //g = (scanner.nextDouble()).toInt()
+            //b = (scanner.nextDouble()).toInt()
         }
-        return Color.rgb(r, g, b)
+        return Color.rgb(200, 200, 200)
     }
 
 }

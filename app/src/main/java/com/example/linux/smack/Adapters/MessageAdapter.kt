@@ -30,7 +30,7 @@ class MessageAdapter(val context : Context, val messages: ArrayList<SmackMessage
         holder?.bindMessages(context, messages[position])
     }
 
-    inner class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val userImage = itemView?.findViewById<ImageView>(R.id.messageUserImage)
         val timeStamp = itemView?.findViewById<TextView>(R.id.timeStampLabel)
         val userName = itemView?.findViewById<TextView>(R.id.messageUserNameLabel)
