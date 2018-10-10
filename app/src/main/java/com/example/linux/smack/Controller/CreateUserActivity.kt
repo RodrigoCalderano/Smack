@@ -25,7 +25,7 @@ class CreateUserActivity : AppCompatActivity() {
         createSpinner.visibility = View.INVISIBLE
     }
 
-    fun generateUserAvatar(view : View){
+    fun generateUserAvatar(){
         val random = Random()
         val color = random.nextInt(2)
         val avatar = random.nextInt(28)
@@ -39,21 +39,16 @@ class CreateUserActivity : AppCompatActivity() {
         createAvatarImageView.setImageResource(resourceId)
     }
 
-    fun generateColorClicked(view : View){
+    fun generateColorClicked(){
         val random = Random()
         val r = random.nextInt(255)
         val g = random.nextInt(255)
         val b = random.nextInt(255)
-
         createAvatarImageView.setBackgroundColor(Color.rgb(r,g,b))
-        val savedR = r.toDouble()
-        val savedG = g.toDouble()
-        val savedB = b.toDouble()
-
-        avatarColor = "[$savedR, $savedG, $savedB, 1]"
+        avatarColor = "[$r, $g, $b, 1]"
     }
 
-    fun createUserClicked(view : View){
+    fun createUserClicked(){
         enableSpinner(true)
         val userName = createUserNameText.text.toString()
         val email = createEmailText.text.toString()
