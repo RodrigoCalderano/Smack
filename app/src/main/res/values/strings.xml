@@ -6,4 +6,17 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+
+
+    <string name="contentDescription">Null</string>
+
+    <!--LOGIN & CREATE USER-->
+
+    <string name="usuario">Usuário</string>
+    <string name="senha">Senha</string>
+    <string name="email">Email</string>
+    <string name="login">Login</string>
+    <string name="sing_up">Criar nova conta</string>
+    <string name="usario_novo">Usuário novo? Cria uma conta aqui</string>
+
 </resources>

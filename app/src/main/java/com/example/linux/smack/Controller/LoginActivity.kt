@@ -5,6 +5,8 @@ import android.content.Intent
 import android.opengl.Visibility
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -12,14 +14,66 @@ import android.widget.Toast
 import com.example.linux.smack.R
 import com.example.linux.smack.Sevices.AuthService
 import kotlinx.android.synthetic.main.activity_create_user.*
+import kotlinx.android.synthetic.main.activity_create_user.view.*
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_login.view.*
+import org.jetbrains.anko.contentView
 
 class LoginActivity : AppCompatActivity() {
+
+
+    //TODO: COR DO TEXTO NO INPUT TEXT E ARRUMAR SCROLL!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         loginSpinner.visibility = View.GONE
+        val view = contentView!!
+
+        setupListeners(view)
+
+
+    }
+
+
+    private fun setupListeners(view : View) {
+        view.loginLoginBtn.setOnClickListener{
+            if (!isPasswordValid(loginPasswordText.text!!)) {
+                textInputLayoutPass.error = "Sua senha deve conter pelo menos 6 caracteres"
+            }
+            if (!isPasswordValid(loginEmailTxt.text!!)) {
+                textInputLayout.error = "Seu email deve conter pelo menos 6 caracteres"
+            }
+            if  (isPasswordValid(loginEmailTxt.text!!) && isPasswordValid(loginPasswordText.text!!)){
+                textInputLayoutPass.error = null
+                loginLoginBtnClicked(view)
+            }
+        }
+
+        view.loginCreateUserBtn.setOnClickListener{
+            loginCreateUserBtnClicked(view)
+        }
+
+        val tw = object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {}
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                if (isPasswordValid(loginPasswordText.text!!)) {
+                    textInputLayoutPass.error = null
+                }
+                if (isPasswordValid(loginEmailTxt.text!!)) {
+                    textInputLayout.error = null
+                }
+            }
+        }
+
+        view.loginPasswordText.addTextChangedListener(tw)
+        view.loginEmailTxt.addTextChangedListener(tw)
+    }
+
+
+    private fun isPasswordValid(text: Editable?): Boolean {
+        return text != null && text.length >= 6
     }
 
     fun loginLoginBtnClicked(view : View) {
