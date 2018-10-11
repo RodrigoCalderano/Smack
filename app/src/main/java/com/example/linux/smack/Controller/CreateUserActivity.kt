@@ -5,6 +5,8 @@ import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.content.LocalBroadcastManager
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import com.example.linux.smack.R
@@ -12,6 +14,8 @@ import com.example.linux.smack.Sevices.AuthService
 import com.example.linux.smack.Sevices.UserDataService
 import com.example.linux.smack.Utilities.BROADCAST_USER_DATA_CHANGE
 import kotlinx.android.synthetic.main.activity_create_user.*
+import kotlinx.android.synthetic.main.activity_create_user.view.*
+import org.jetbrains.anko.contentView
 import java.util.*
 
 class CreateUserActivity : AppCompatActivity() {
@@ -23,6 +27,22 @@ class CreateUserActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_user)
         createSpinner.visibility = View.INVISIBLE
+
+        val view = contentView!!
+
+        setupListeners(view)
+    }
+
+    //TODO: ARRUMAR TRATAMENTO DE ERRO QUANTIDADE DE CARAC
+
+    fun setupListeners(view : View){
+        view.createAvatarImageView.setOnClickListener {
+            generateUserAvatar()
+            generateColorClicked()
+        }
+        view.createUserBtn.setOnClickListener {
+            createUserCheck()
+        }
     }
 
     fun generateUserAvatar(){
@@ -46,6 +66,41 @@ class CreateUserActivity : AppCompatActivity() {
         val b = random.nextInt(255)
         createAvatarImageView.setBackgroundColor(Color.rgb(r,g,b))
         avatarColor = "[$r, $g, $b, 1]"
+    }
+
+    fun createUserCheck(){
+        if (!isPasswordValid(createPasswordText.text!!)) {
+            textInputLayoutEmailPass.error = "Sua senha deve conter pelo menos 6 caracteres"
+        }
+        if (!isPasswordValid(createEmailText.text!!)) {
+            textInputLayoutEmail.error = "Seu email deve conter pelo menos 6 caracteres"
+        }
+        if  (isPasswordValid(createPasswordText.text!!) && isPasswordValid(createEmailText.text!!)){
+            textInputLayoutEmail.error = null
+            textInputLayoutEmailPass.error = null
+            createUserClicked()
+        }
+
+
+        val tw = object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {}
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                if (isPasswordValid(createPasswordText.text!!)) {
+                    textInputLayoutEmailPass.error = null
+                }
+                if (isPasswordValid(createEmailText.text!!)) {
+                    textInputLayoutEmail.error = null
+                }
+            }
+        }
+
+        createPasswordText.addTextChangedListener(tw)
+        createEmailText.addTextChangedListener(tw)
+    }
+
+    private fun isPasswordValid(text: Editable?): Boolean {
+        return text != null && text.length >= 6
     }
 
     fun createUserClicked(){
@@ -96,7 +151,6 @@ class CreateUserActivity : AppCompatActivity() {
         }
         createUserBtn.isEnabled = !enable
         createAvatarImageView.isEnabled = !enable
-        backgroundColorBtn.isEnabled = !enable
     }
 
 }

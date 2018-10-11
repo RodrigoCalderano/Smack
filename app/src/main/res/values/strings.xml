@@ -16,7 +16,9 @@
     <string name="senha">Senha</string>
     <string name="email">Email</string>
     <string name="login">Login</string>
+    <string name="cor_backgroud">Gerar cor aleatória</string>
     <string name="sing_up">Criar nova conta</string>
     <string name="usario_novo">Usuário novo? Cria uma conta aqui</string>
+    <string name="generate_color_txt">Clique abaixo para gerar seu avatar</string>
 
 </resources>
