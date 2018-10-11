@@ -69,15 +69,20 @@ class CreateUserActivity : AppCompatActivity() {
     }
 
     fun createUserCheck(){
+        if (!isPasswordValid(createUserNameText.text!!)) {
+            textInputLayout.error = "Seu usuário deve conter pelo menos 6 caracteres"
+        }
         if (!isPasswordValid(createPasswordText.text!!)) {
             textInputLayoutEmailPass.error = "Sua senha deve conter pelo menos 6 caracteres"
         }
         if (!isPasswordValid(createEmailText.text!!)) {
             textInputLayoutEmail.error = "Seu email deve conter pelo menos 6 caracteres"
         }
-        if  (isPasswordValid(createPasswordText.text!!) && isPasswordValid(createEmailText.text!!)){
+        if  (isPasswordValid(createPasswordText.text!!) && isPasswordValid(createEmailText.text!!)
+                && isPasswordValid(createUserNameText.text!!)){
             textInputLayoutEmail.error = null
             textInputLayoutEmailPass.error = null
+            textInputLayout.error = null
             createUserClicked()
         }
 
@@ -92,9 +97,13 @@ class CreateUserActivity : AppCompatActivity() {
                 if (isPasswordValid(createEmailText.text!!)) {
                     textInputLayoutEmail.error = null
                 }
+                if (isPasswordValid(createUserNameText.text!!)) {
+                    textInputLayout.error = null
+                }
             }
         }
 
+        createUserNameText.addTextChangedListener(tw)
         createPasswordText.addTextChangedListener(tw)
         createEmailText.addTextChangedListener(tw)
     }
