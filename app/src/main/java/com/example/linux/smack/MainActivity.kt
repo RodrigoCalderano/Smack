@@ -115,10 +115,13 @@ class MainActivity : AppCompatActivity() {
         if (selectedChannel != null){
             MessageService.getMessages(selectedChannel!!.id) { complete ->
                 if (complete){
-                    for (message in MessageService.messages){
-                        messageAdapter.notifyDataSetChanged()
-                        if (messageAdapter.itemCount > 0){
-                            messageListView.smoothScrollToPosition(messageAdapter.itemCount - 1)
+                    messageAdapter.notifyDataSetChanged()
+                    if (MessageService.messages.size > 0){
+                        for (message in MessageService.messages){
+                            messageAdapter.notifyDataSetChanged()
+                            if (messageAdapter.itemCount > 0){
+                                messageListView.smoothScrollToPosition(messageAdapter.itemCount -1)
+                            }
                         }
                     }
                 }
