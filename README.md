@@ -5,8 +5,8 @@ Um aplicativo Android de conversa feito em kotlin. Permite cadastro de novo usu�
 App feito com a finalidade de aprimorar o conhecimento das ferramentas:
 - Biblioteca Anko para melhoria do código
 - Volley para comunicação com a api
-- Web Sockets para atualização autônoma dos dados
-- RecyclerView com CardVeiw para mostrar as mensagens de forma agradável ao usuário
+- Web Sockets para atualização automática dos dados
+- RecyclerView com CardView para mostrar as mensagens de forma agradável ao usuário
 - Componentes e cores do Material Design 
 
 
